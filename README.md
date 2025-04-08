@@ -10,7 +10,7 @@ HTML, CSS, JavaScript, React
 https://agnieszkaszajnowska.github.io/Currency-Conventer-react/
 
 ## Visualization
-![demo.png](https://i.postimg.cc/MKgQLLjf/demo.png)
+![demo.png](https://i.postimg.cc/DZDDvY6b/demo.png)
 
 ## Getting Started with Create React App
 
