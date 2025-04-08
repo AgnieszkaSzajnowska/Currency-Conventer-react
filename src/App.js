@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Form from "./Form";
-import { currencies } from "./Currencies";
+import { currencies } from "./currencies";
 import "./app.css";
 import { Clock } from "./Clock";
 
