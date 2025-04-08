@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { currencies } from "../Currencies";
-import { Result } from "../Result";
+import { Result } from "./Result";
 import "./style.css";
 
 const Form = ({ calculateResult, result }) => {
