@@ -4,7 +4,7 @@
 3. Page is made in PL language.
 
 ## Technologies
-HTML, CSS, JavaScript, React
+HTML, JavaScript, React, styled-components
 
 ## Demo
 https://agnieszkaszajnowska.github.io/Currency-Conventer-react/
