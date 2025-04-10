@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { currencies } from "../currencies";
 import { Result } from "./Result";
-import "./style.css";
+import { Button, Header, Field, LabelText } from "./styled";
 
 const Form = ({ calculateResult, result }) => {
     const [currency, setCurrency] = useState(currencies[0].short);
@@ -13,20 +13,15 @@ const Form = ({ calculateResult, result }) => {
     }
 
     return (
-        <form className="form" onSubmit={onSubmit}>
-            <h1 className="form__header">
-                Kalkulator walut
-            </h1>
+        <form onSubmit={onSubmit}>
+            <Header>Kalkulator walut</Header>
             <p>
                 <label>
-                    <span className="form__labelText">
-                        Kwota w zł:
-                    </span>
-                    <input
+                    <LabelText>Kwota w zł:</LabelText>
+                    <Field
                         value={amount}
                         onChange={({ target }) => setAmount(target.value)}
                         placeholder="Wpisz wartość w zł"
-                        className="form__field"
                         type="number"
                         required
                         step="0.01"
@@ -35,11 +30,9 @@ const Form = ({ calculateResult, result }) => {
             </p>
             <p>
                 <label>
-                    <span className="form__labelText">
-                        Waluta:
-                    </span>
-                    <select
-                        className="form__field"
+                    <LabelText>Waluta:</LabelText>
+                    <Field
+                        as="select"
                         value={currency}
                         onChange={({ target }) => setCurrency(target.value)}
                     >
@@ -51,11 +44,11 @@ const Form = ({ calculateResult, result }) => {
                                 {currency.name}
                             </option>
                         )))}
-                    </select>
+                    </Field>
                 </label>
             </p>
             <p>
-                <button className="form__button">Przelicz</button>
+                <Button>Przelicz</Button>
             </p>
             <Result result={result} />
         </form>
