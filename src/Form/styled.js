@@ -37,3 +37,11 @@ export const Header = styled.h1`
     color: blueviolet;
     text-align: center;
 `;
+
+export const Loading = styled.p`
+    color: blueviolet;
+`;
+
+export const Failure = styled.p`
+    color: crimson;
+`;
