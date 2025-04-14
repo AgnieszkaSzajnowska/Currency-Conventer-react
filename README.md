@@ -1,6 +1,6 @@
 # Currency-Conventer-App
 1. Program written for training purpose. 
-2. This page allows to you to convert currencies from PLN to (by choice): USD, EUR, CHF, GBP, CAD. Please notice that exchange rate is not automatically updated. The current value corresponds to the state from 07-04-2025.
+2. This page allows to you to convert currencies from PLN to any available currency you want. Please notice that exchange rate are taken from https://currencyapi.com/. 
 3. Page is made in PL language.
 
 ## Technologies
