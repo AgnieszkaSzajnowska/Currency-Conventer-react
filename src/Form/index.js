@@ -1,59 +1,83 @@
 import React, { useState } from "react";
-import { currencies } from "../currencies";
 import { Result } from "./Result";
-import { Button, Header, Field, LabelText } from "./styled";
+import { Button, Header, Field, LabelText, Loading, Failure } from "./styled";
+import { useRatesData } from "./useRatesData";
 
-const Form = ({ calculateResult, result }) => {
-    const [currency, setCurrency] = useState(currencies[0].short);
-    const [amount, setAmount] = useState("");
+export const Form = () => {
+  const [result, setResult] = useState();
+  const ratesData = useRatesData();
 
-    const onSubmit = (event) => {
-        event.preventDefault();
-        calculateResult(currency, amount);
-    }
+  const calculateResult = (currency, amount) => {
+    const rate = ratesData.rates[currency].value;
+    
+    setResult({
+      sourceAmount: +amount,
+      targetAmount: amount * rate,
+      currency,
+    });
+  }
 
-    return (
-        <form onSubmit={onSubmit}>
-            <Header>Kalkulator walut</Header>
-            <p>
+  const [currency, setCurrency] = useState("EUR");
+  const [amount, setAmount] = useState("");
+
+  const onSubmit = (event) => {
+    event.preventDefault();
+    calculateResult(currency, amount);
+  }
+
+  return (
+    <form onSubmit={onSubmit}>
+      <Header>Przelicznik Walut</Header>
+      {ratesData.state === "loading" 
+        ? (
+          <Loading>Ładuję kursy walut. Proszę czekać</Loading>
+        )
+        : (
+          ratesData.state === "error" ? (
+            <Failure>Coś poszło nie tak. Spróbuj ponownie później.</Failure>
+          ) : (
+            <>
+              <p>
                 <label>
-                    <LabelText>Kwota w zł:</LabelText>
-                    <Field
-                        value={amount}
-                        onChange={({ target }) => setAmount(target.value)}
-                        placeholder="Wpisz wartość w zł"
-                        type="number"
-                        required
-                        step="0.01"
-                        min="0.01"
-                    />
+                  <LabelText>Kwota w zł:</LabelText>
+                  <Field
+                    value={amount}
+                    onChange={({ target }) => setAmount(target.value)}
+                    placeholder="Wpisz wartość w zł"
+                    type="number"
+                    required
+                    step="0.01"
+                    min="0.01"
+                  />
                 </label>
-            </p>
-            <p>
+              </p>
+              <p>
                 <label>
-                    <LabelText>Waluta:</LabelText>
-                    <Field
-                        as="select"
+                  <LabelText>Waluta:</LabelText>
+                  <Field
+                    as="select"
+                    value={currency}
+                    onChange={({ target }) => setCurrency(target.value)}
+                  >
+                      {!!ratesData.rates && Object.keys(ratesData.rates).map(((currency) => (
+                      <option
+                        key={currency}
                         value={currency}
-                        onChange={({ target }) => setCurrency(target.value)}
-                    >
-                        {currencies.map((currency => (
-                            <option
-                                key={currency.short}
-                                value={currency.short}
-                            >
-                                {currency.name}
-                            </option>
-                        )))}
-                    </Field>
+                      >
+                        {currency}
+                      </option>
+                    )))}
+                  </Field>
                 </label>
-            </p>
-            <p>
+              </p>
+              <p>
                 <Button>Przelicz</Button>
-            </p>
-            <Result result={result} />
-        </form>
-    );
+              </p>
+              <Result result={result} />
+            </>
+          )
+        )}
+    </form>
+  );
 };
 
-export default Form;
